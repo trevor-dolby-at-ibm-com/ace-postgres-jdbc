@@ -42,6 +42,9 @@ public class TimerFlow_JavaCompute extends MbJavaComputeNode {
 			// Add user code below
 			String selectResult = "";
 
+		    // Could use the unqualified form for policies in the default policy project (e.g., migrated from v10)
+		    // Connection conn = getJDBCType4Connection("PostgresJDBC", JDBC_TransactionType.MB_TRANSACTION_AUTO);
+			
 		    Connection conn = getJDBCType4Connection("{DemoPolicies}:PostgresJDBC", JDBC_TransactionType.MB_TRANSACTION_AUTO);
 
 		    // Example of using the Connection to create a java.sql.Statement  
