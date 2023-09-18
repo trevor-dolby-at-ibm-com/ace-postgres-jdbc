@@ -14,6 +14,12 @@ echo ""
 
 # We have to copy the work directory out to avoid issues with ibmint, but this
 # also reduces the likelihood of accidentally checking in user/pw information.
+echo $PWD
+/bin/pwd
+ls -la 
+ls -la PostgresTestWorkDir
+ls -l /tmp
+
 cp -r $PWD/PostgresTestWorkDir /tmp/PostgresTestWorkDir
 mqsisetdbparms -w /tmp/PostgresTestWorkDir -n jdbc::postgres -u postgres -p ${POSTGRES_PASSWORD}
 
