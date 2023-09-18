@@ -1,0 +1,70 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  # Label of the container job
+  container-job:
+    # Containers must run in Linux based operating systems
+    runs-on: ubuntu-latest
+    container:
+      image: tdolby/experimental:ace-basic-12.0.9.0-ubuntu
+      env:
+        LICENSE: accept
+
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: passw0rd
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      # Runs a set of commands using the runners shell
+      - name: Build/UT for ACE projects
+        shell: bash
+        run: |
+          # Build and test in ACE env
+          
+          ########################################################################
+          # 
+          # ACE environment setup
+          # 
+          ########################################################################
+          . /opt/ibm/ace-12/server/bin/mqsiprofile
+          
+          ########################################################################
+          # 
+          # Run tests 
+          # 
+          ########################################################################
+          ./build-and-run-tests.sh
+        env:
+          # Provide the password for postgres
+          POSTGRES_PASSWORD: passw0rd
+          # The hostname used to communicate with the PostgreSQL service container
+          POSTGRES_HOST: postgres
+          # The default PostgreSQL port
+          POSTGRES_PORT: 5432
