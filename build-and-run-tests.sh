@@ -17,18 +17,19 @@ echo ""
 mqsicreateworkdir /tmp/PostgresTestWorkDir
 cp -v -r PostgresTestWorkDir/* /tmp/PostgresTestWorkDir/
 
-find /tmp/PostgresTestWorkDir
-
+# Add user/pw information
 mqsisetdbparms -w /tmp/PostgresTestWorkDir -n jdbc::postgres -u postgres -p ${POSTGRES_PASSWORD}
 
 # Fix up the postgres host and port to work in containers
 sed -i "s/localhost/${POSTGRES_HOST}/g" /tmp/PostgresTestWorkDir/run/DemoPolicies/PostgresJDBC.policyxml
 sed -i "s/5432/${POSTGRES_PORT}/g" /tmp/PostgresTestWorkDir/run/DemoPolicies/PostgresJDBC.policyxml
 
+# Build the application and test project
 ibmint deploy --input-path $PWD --output-work-directory /tmp/PostgresTestWorkDir --project JDBCApplication --project JDBCApplicationJava --project JDBCApplication_ComponentTest
+
+# Run the tests; the script will exit if this step fails
 IntegrationServer -w /tmp/PostgresTestWorkDir --no-nodejs --start-msgflows no --test-project JDBCApplication_ComponentTest
 
-# Clean up JARs left by ibmint - git will notice if we leave them around; while
-# we could ignore JAR files with .gitignore, that would make it harder to upgrade
-# cucumber JARs later. Maven solves this (see maven branch) . . . 
+# Clean up JARs left by ibmint - not a problem for the CI build but git 
+# will notice if we leave them around while running locally.
 rm *_*/*_*.jar
