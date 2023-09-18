@@ -9,3 +9,9 @@
 
 # Undo-tree save-files
 *.~undo-tree
+
+PostgresTestWorkDir/run
+PostgresTestWorkDir/config
+PostgresTestWorkDir/log
+
+

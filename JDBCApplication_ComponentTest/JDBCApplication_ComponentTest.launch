@@ -5,7 +5,7 @@
 <stringAttribute key="debugPort" value="6010"/>
 <stringAttribute key="mqManagerName" value="FakeQueueManagerName"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/CountMQMessages_UnitTest"/>
+<listEntry value="/JDBCApplication_ComponentTest"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="4"/>
