@@ -11,7 +11,7 @@
 *.~undo-tree
 
 PostgresTestWorkDir/run
-#PostgresTestWorkDir/config
+PostgresTestWorkDir/config
 PostgresTestWorkDir/log
 
 
