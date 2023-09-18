@@ -20,7 +20,12 @@ ls -la
 ls -la PostgresTestWorkDir
 ls -l /tmp
 
-cp -r $PWD/PostgresTestWorkDir /tmp/PostgresTestWorkDir
+cp -v -r PostgresTestWorkDir /tmp/PostgresTestWorkDir
+
+ls -l /tmp
+
+ls -l /tmp/PostgresTestWorkDir
+
 mqsisetdbparms -w /tmp/PostgresTestWorkDir -n jdbc::postgres -u postgres -p ${POSTGRES_PASSWORD}
 
 # Fix up the postgres host and port to work in containers
